@@ -202,5 +202,22 @@ categoryText: {
 },
 
 
+// Añade estos estilos al archivo
+
+  // ... (otros estilos)
+  logoutButton: {
+    backgroundColor: Colors.error,
+    padding: 10,
+    margin: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  logoutButtonText: {
+    color: Colors.text,
+    fontWeight: 'bold',
+  },
+
+
+
 
 });
