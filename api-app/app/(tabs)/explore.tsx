@@ -1,10 +1,22 @@
 import React from "react";
-import { FlatList, View } from "react-native";
-import { CategoryCard } from "../../components/CategoryCard";
+import { FlatList, View, TouchableOpacity, Text } from "react-native";
 import { ErrorState } from "../../components/ErrorState";
 import { LoadingState } from "../../components/LoadingState";
 import { useCategories } from "../../src/presentation/hooks/useCategories";
-import { globalStyles } from "../../src/presentation/styles/globalStyles";
+import { globalStyles, Colors } from "../../src/presentation/styles/globalStyles";
+
+// Componente para renderizar cada categoría
+const CategoryCard = ({ category, onPress }: { category: string; onPress: () => void }) => {
+  return (
+    <TouchableOpacity
+      style={globalStyles.categoryCard}
+      onPress={onPress}
+      activeOpacity={0.7} // Efecto de presión
+    >
+      <Text style={globalStyles.categoryText}>{category}</Text>
+    </TouchableOpacity>
+  );
+};
 
 export default function CategoriesScreen() {
   const { categories, loading, error } = useCategories();
@@ -17,20 +29,32 @@ export default function CategoriesScreen() {
     return <ErrorState message={error} />;
   }
 
-  const renderCategory = ({ item }: { item: any }) => (
-    <CategoryCard category={item} />
+  // Función para manejar el clic en una categoría (puedes implementar la navegación después)
+  const handleCategoryPress = (category: string) => {
+    console.log(`Categoría seleccionada: ${category}`);
+    // Aquí puedes navegar a una nueva pantalla que muestre productos de esa categoría
+  };
+
+  const renderCategory = ({ item }: { item: string }) => (
+    <CategoryCard category={item} onPress={() => handleCategoryPress(item)} />
   );
 
   return (
     <View style={globalStyles.container}>
+      {/* Título de la sección */}
+      <View style={globalStyles.sectionHeader}>
+        <Text style={globalStyles.sectionTitle}>Explorar Categorías</Text>
+      </View>
+
+      {/* Lista de categorías en cuadrícula */}
       <FlatList
         data={categories}
         keyExtractor={(item, index) => index.toString()}
         renderItem={renderCategory}
-        horizontal={false}
-        numColumns={2} // Muestra categorías en 2 columnas
-        contentContainerStyle={globalStyles.container}
+        numColumns={2} // Mostrar en 2 columnas
+        contentContainerStyle={[globalStyles.container, { padding: 16 }]} // Añadir padding
         showsVerticalScrollIndicator={false}
+        columnWrapperStyle={{ justifyContent: 'space-between' }} // Espacio entre columnas
       />
     </View>
   );
