@@ -28,6 +28,15 @@ export default function LoginScreen() {
       return;
     }
 
+    // Validación frndnd para la contraseña
+    if (password.length < 6) {
+      Alert.alert("Error", "La contraseña debe tener al menos 6 caracteres.");
+      return;
+    }
+
+
+
+
     setLoading(true);
 
     let result;
