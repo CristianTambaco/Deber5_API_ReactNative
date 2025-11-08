@@ -76,28 +76,7 @@ export const globalStyles = StyleSheet.create({
     color: Colors.secondary,
     marginLeft: 4,
   },
-  // --- Category Card ---
-  categoryCard: {
-    backgroundColor: Colors.cardBackground,
-    borderRadius: 8,
-    padding: 16,
-    marginHorizontal: 8,
-    marginBottom: 16,
-    alignItems: "center",
-    justifyContent: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-    minWidth: 120,
-  },
-  categoryText: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: Colors.text,
-    textAlign: "center",
-  },
+  
   // --- Loading ---
   loadingContainer: {
     flex: 1,
@@ -176,4 +155,52 @@ export const globalStyles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4,
   },
+
+
+  // === ESTILOS NUEVOS PARA LA PANTALLA DE CATEGORÍAS ===
+
+// Encabezado de la sección
+sectionHeader: {
+  backgroundColor: Colors.cardBackground,
+  padding: 16,
+  borderBottomWidth: 1,
+  borderBottomColor: Colors.border,
+},
+
+// Título de la sección
+sectionTitle: {
+  fontSize: 24,
+  fontWeight: "bold",
+  color: Colors.text,
+  textAlign: "center",
+},
+
+// Tarjeta de categoría (mejorada)
+categoryCard: {
+  flex: 1, // Para que ocupe el espacio disponible en la columna
+  backgroundColor: Colors.cardBackground,
+  borderRadius: 12,
+  padding: 16,
+  margin: 8, // Margen entre tarjetas
+  alignItems: "center",
+  justifyContent: "center",
+  shadowColor: "#000",
+  shadowOffset: { width: 0, height: 2 },
+  shadowOpacity: 0.2,
+  shadowRadius: 4,
+  elevation: 3,
+  minHeight: 100, // Altura mínima para que todas las tarjetas sean del mismo tamaño
+},
+
+// Texto dentro de la tarjeta de categoría
+categoryText: {
+  fontSize: 16,
+  fontWeight: "600",
+  color: Colors.text,
+  textAlign: "center",
+  lineHeight: 20,
+},
+
+
+
 });
