@@ -12,4 +12,5 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({ category }) => {
       <Text style={globalStyles.categoryText}>{category}</Text>
     </View>
   );
+  
 };
