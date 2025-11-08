@@ -15,19 +15,11 @@ export const useAuth = (): AuthState => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Usa auth.onAuthStateChanged directamente
-    const unsubscribe = auth.onAuthStateChanged(
-      (user) => {
-        setUser(user);
-        setLoading(false);
-        setError(null);
-      },
-      (error) => {
-        setError("Error al verificar el estado de autenticación.");
-        setLoading(false);
-        console.error("Auth state change error:", error);
-      }
-    );
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+      setLoading(false);
+      setError(null);
+    });
 
     return () => unsubscribe();
   }, []);

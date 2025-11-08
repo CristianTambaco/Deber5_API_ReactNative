@@ -2,32 +2,38 @@
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors, globalStyles } from "../../src/presentation/styles/globalStyles";
-import { AuthService } from "../../src/data/services/auth.service";
 import { Alert } from "react-native";
+import { useRouter } from "expo-router"; // Importa useRouter
 
-const handleLogout = () => {
-  Alert.alert(
-    "Cerrar Sesión",
-    "¿Estás seguro de que deseas cerrar sesión?",
-    [
-      { text: "Cancelar", style: "cancel" },
-      {
-        text: "Aceptar",
-        onPress: async () => {
-          try {
-            await AuthService.logout();
-            // La navegación se manejará automáticamente por el hook useAuth en _layout.tsx
-          } catch (error) {
-            console.error("Error al cerrar sesión:", error);
-            Alert.alert("Error", "No se pudo cerrar sesión. Inténtalo de nuevo.");
-          }
-        },
-      },
-    ]
-  );
-};
+import { auth } from "../../FirebaseConfig"; // Asegúrate de la ruta correcta
 
 export default function TabLayout() {
+  const router = useRouter(); // Usa el hook aquí, dentro del componente
+
+  const handleLogout = () => {
+    Alert.alert(
+      "Cerrar Sesión",
+      "¿Estás seguro de que deseas cerrar sesión?",
+      [
+        { text: "Cancelar", style: "cancel" },
+        {
+          text: "Aceptar",
+          onPress: async () => {
+            try {
+              // Cierra la sesión con Firebase
+              await auth.signOut(); // Asegúrate de importar 'auth' si no lo has hecho
+              // Navega a la pantalla de login
+              router.replace("/login");
+            } catch (error) {
+              console.error("Error al cerrar sesión:", error);
+              Alert.alert("Error", "No se pudo cerrar sesión. Inténtalo de nuevo.");
+            }
+          },
+        },
+      ]
+    );
+  };
+
   return (
     <Tabs
       screenOptions={{
@@ -48,7 +54,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="cube" size={size} color={color} />
           ),
-          headerRight: () => ( // Añadir botón de logout en el header de index
+          headerRight: () => (
             <Ionicons
               name="log-out-outline"
               size={24}

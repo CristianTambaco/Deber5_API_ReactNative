@@ -16,7 +16,6 @@ export default function RootLayout() {
 
   if (error) {
     console.error("Error de autenticación global:", error);
-    // Opcional: Mostrar mensaje de error o forzar logout
   }
 
   return (
