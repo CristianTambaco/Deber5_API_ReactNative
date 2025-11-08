@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { ProductCard } from "../../components/ProductCard";
 import { ErrorState } from "../../components/ErrorState";
 import { LoadingState } from "../../components/LoadingState";
@@ -22,14 +22,12 @@ export default function ProductsScreen() {
   );
 
   return (
-    <View style={globalStyles.container}>
-      <FlatList
-        data={products}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={renderProduct}
-        contentContainerStyle={globalStyles.container}
-        showsVerticalScrollIndicator={false}
-      />
-    </View>
+    <ScrollView style={globalStyles.container}>
+      <View>
+        {products.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </View>
+    </ScrollView>
   );
 }
