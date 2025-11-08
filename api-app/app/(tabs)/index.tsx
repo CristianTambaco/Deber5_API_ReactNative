@@ -1,54 +1,34 @@
-import React, { useState, useMemo } from "react";
-import { FlatList, RefreshControl, View } from "react-native";
+import React from "react";
+import { FlatList, View } from "react-native";
+import { ProductCard } from "../../components/ProductCard";
 import { ErrorState } from "../../components/ErrorState";
 import { LoadingState } from "../../components/LoadingState";
-import { CharacterCard } from "../../components/CharacterCard";
-import { SearchBar } from "../../components/SearchBar";
-import { useCharacters } from "../../src/presentation/hooks/useCharacters";
-import { Character } from "../../src/domain/models/Character.model";
+import { useProducts } from "../../src/presentation/hooks/useProducts";
 import { globalStyles } from "../../src/presentation/styles/globalStyles";
 
-/**
- * Pantalla de personajes con búsqueda y paginación
- */
-export default function CharactersScreen() {
-  const { characters, loading, error, loadMore, refresh } = useCharacters();
-  const [searchQuery, setSearchQuery] = useState("");
+export default function ProductsScreen() {
+  const { products, loading, error } = useProducts();
 
-  // 🔍 Filtrar personajes localmente
-  const filteredCharacters = useMemo(() => {
-    return characters.filter((char) =>
-      char.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  }, [characters, searchQuery]);
-
-  if (loading && characters.length === 0) {
-    return <LoadingState message="Cargando personajes..." />;
+  if (loading) {
+    return <LoadingState message="Cargando productos..." />;
   }
 
-  if (error && characters.length === 0) {
+  if (error) {
     return <ErrorState message={error} />;
   }
 
-  const renderCharacter = ({ item }: { item: Character }) => (
-    <CharacterCard character={item} />
+  const renderProduct = ({ item }: { item: any }) => (
+    <ProductCard product={item} />
   );
 
   return (
     <View style={globalStyles.container}>
-      {/* 🔍 Campo de búsqueda */}
-      <SearchBar onSearch={setSearchQuery} />
-
       <FlatList
-        data={filteredCharacters}
+        data={products}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={renderCharacter}
-        onEndReached={loadMore}
-        onEndReachedThreshold={0.5}
-        refreshControl={
-          <RefreshControl refreshing={loading} onRefresh={refresh} />
-        }
-        contentContainerStyle={globalStyles.listContent}
+        renderItem={renderProduct}
+        contentContainerStyle={globalStyles.container}
+        showsVerticalScrollIndicator={false}
       />
     </View>
   );

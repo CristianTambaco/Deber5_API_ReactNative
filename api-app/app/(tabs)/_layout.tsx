@@ -1,6 +1,5 @@
-import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
-import React from "react";
+import { Ionicons } from "@expo/vector-icons";
 import { Colors, globalStyles } from "../../src/presentation/styles/globalStyles";
 
 export default function TabLayout() {
@@ -20,18 +19,18 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Personajes",
+          title: "Productos",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="people" size={size} color={color} />
+            <Ionicons name="cube" size={size} color={color} />
           ),
         }}
       />
       <Tabs.Screen
         name="explore"
         options={{
-          title: "Planetas",
+          title: "Categorías",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="planet" size={size} color={color} />
+            <Ionicons name="pricetags" size={size} color={color} />
           ),
         }}
       />
