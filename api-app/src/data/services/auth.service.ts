@@ -40,7 +40,7 @@ export class AuthService {
       }
 
       // Opcional: Enviar correo de verificación
-      await sendEmailVerification(user);
+      // await sendEmailVerification(user);
 
       return { user };
     } catch (error: any) {
@@ -70,6 +70,22 @@ export class AuthService {
       return { user };
     } catch (error: any) {
       console.error("Error logging in:", error);
+
+      // Capturar errores específicos de Firebase
+      let errorMessage = "Error al registrar usuario. Inténtalo de nuevo.";
+
+      if (error.code === "auth/weak-password") {
+        errorMessage = "La contraseña debe tener al menos 6 caracteres.";
+      } else if (error.code === "auth/email-already-in-use") {
+        errorMessage = "Este correo electrónico ya está en uso.";
+      } else if (error.code === "auth/invalid-email") {
+        errorMessage = "El correo electrónico no es válido.";
+      } else if (error.code === "auth/missing-password") {
+        errorMessage = "Por favor, ingresa una contraseña.";
+      }
+
+
+
       return { error: error.message };
     }
   }
