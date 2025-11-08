@@ -60,7 +60,8 @@ export default function LoginScreen() {
       <Text style={styles.title}>{isLogin ? "Iniciar Sesión" : "Registrarse"}</Text>
 
       <View style={styles.form}>
-        {!isLogin && (
+
+        {/* {!isLogin && (
           <TextInput
             style={styles.input}
             placeholder="Nombre de Usuario (Opcional)"
@@ -68,7 +69,9 @@ export default function LoginScreen() {
             onChangeText={setDisplayName}
             autoCapitalize="words"
           />
-        )}
+        )} */}
+
+
         <TextInput
           style={styles.input}
           placeholder="Email"
